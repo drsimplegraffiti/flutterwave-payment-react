@@ -24,7 +24,7 @@ export default function App() {
     },
     customizations: {
       title: "Abayomi Shop",
-      description: "Payment for Coding lesson",
+      description: "Payment for Coding lesson.",
       logo: "https://st2.depositphotos.com/4403291/7418/v/450/depositphotos_74189661-stock-illustration-online-shop-log.jpg",
     },
   };
