@@ -1,0 +1,54 @@
+*{
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+
+}
+
+body{
+  font-family: 'Poppins', sans-serif;
+  background: #e1e1e1;
+}
+
+.App{
+  text-align: center;
+}
+
+.container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 1rem;
+
+}
+
+.container input{
+  width: 100%;
+  max-width: 400px;
+  padding: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  outline: none;
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+}
+
+.container button{
+  width: 100%;
+  max-width: 400px;
+  padding: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  outline: none;
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+  background: teal;
+  cursor: pointer;
+  color: #fff;
+}
+
+.container button:hover{
+  background: #333;
+}
