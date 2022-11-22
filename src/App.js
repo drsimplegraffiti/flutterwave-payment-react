@@ -8,6 +8,8 @@ export default function App() {
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
+  const [error, setError] = useState("");
+  const [empty, setEmpty] = useState(false);
 
   const config = {
     public_key: "FLWPUBK_TEST-e7c8f332b9d34b01b958cf4f4f643018-X",
@@ -27,45 +29,78 @@ export default function App() {
     },
   };
 
+  //  handle error before payment
   const handleFlutterPayment = useFlutterwave(config);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (amount === 0 || email === "" || name === "" || phone === "") {
+      setEmpty(true);
+      setError("Please fill all fields");
+    } else {
+      setEmpty(false);
+      setError("");
+      handleFlutterPayment({
+        callback: (response) => {
+          console.log(response);
+          closePaymentModal(); // this will close the modal programmatically
+        },
+        onClose: () => {},
+      });
+    }
+  };
 
   return (
     <div className="App">
       <div className="container">
-        <input
-          type="number"
-          placeholder="Amount"
-          onChange={(e) => setAmount(e.target.value)}
-        />
-        <input
-          type="text"
-          placeholder="Email"
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <input
-          type="text"
-          placeholder="Name"
-          onChange={(e) => setName(e.target.value)}
-        />
-        <input
-          type="text"
-          placeholder="Phone"
-          onChange={(e) => setPhone(e.target.value)}
-        />
+        <h1>Flutterwave Payment</h1>
+        <div className="form-control">
+          <label htmlFor="amount">Amount</label>
+          <input
+            type="number"
+            id="amount"
+            value={amount}
+            onChange={(e) => setAmount(e.target.value)}
+          />
+       
 
-        <button
-          onClick={() =>
-            handleFlutterPayment({
-              callback: (response) => {
-                console.log(response);
-                closePaymentModal(); // this will close the modal programmatically
-              },
-              onClose: () => {},
-            })
-          }
-        >
-          Pay
-        </button>
+          <label htmlFor="email">Email</label>
+          <input
+            type="email"
+            id="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="Enter email"
+          />
+
+          <label htmlFor="name">Name</label>
+          <input
+            type="text"
+            id="name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            placeholder="Enter name"
+          />
+
+          <label htmlFor="phone">Phone</label>
+          <input
+            type="text"
+            id="phone"
+            value={phone}
+            onChange={(e) => setPhone(e.target.value)}
+            placeholder="Enter phone"
+          />
+
+          <button
+            type="submit"
+            className="btn"
+            onClick={(e) => handleSubmit(e)}
+          >
+            Pay
+          </button>
+
+          {empty && <p className="error">{error}</p>}
+        </div>
       </div>
     </div>
   );
